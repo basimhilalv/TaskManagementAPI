@@ -5,6 +5,14 @@ namespace TaskManagementAPI.Services
     public class TaskServices : ITaskServices
     {
         public readonly List<Tasks> TaskData = new List<Tasks>();
+
+        public IEnumerable<Tasks?> GetTaskByName(string title)
+        {
+            
+                var task = TaskData.Where(t=>t.Title.StartsWith(title));
+                if (task == null) return null;
+                return task;
+        }
         public Tasks? AddTask(Tasks task)
         {
             if (TaskData.Any(t => t.Title == task.Title)) return null;

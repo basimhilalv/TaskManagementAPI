@@ -6,5 +6,6 @@ namespace TaskManagementAPI.Services
     {
         User? RegisterUser(UserDto user);
         string? LoginUser(UserDto user);
+        IEnumerable<User> GetUsers();
     }
 }

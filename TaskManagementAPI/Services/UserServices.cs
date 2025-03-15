@@ -9,7 +9,13 @@ namespace TaskManagementAPI.Services
     public class UserServices : IUserServices
     {
         public readonly List<User> Users = new List<User>();
-        
+
+        public readonly IConfiguration _configuration;
+        public UserServices(IConfiguration configuration)
+        {
+
+            _configuration = configuration;
+        }
 
         public User? RegisterUser(UserDto user)
         {
@@ -29,6 +35,11 @@ namespace TaskManagementAPI.Services
             return newUser;
         }
 
+        public IEnumerable<User> GetUsers()
+        {  
+            return Users;
+        }
+
         public string? LoginUser(UserDto user)
         {
             var userToLogin = Users.FirstOrDefault(u => u.username == user.username && u.password == user.password);
@@ -40,7 +51,7 @@ namespace TaskManagementAPI.Services
         private string createToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("supersecretkeyofbasimhilalisfamousforeverythingthattoughtinthiseraoftechnologyandresearchokthenbye");
+            var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("AppSettings:Key"));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

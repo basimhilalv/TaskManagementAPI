@@ -9,5 +9,6 @@ namespace TaskManagementAPI.Services
         Tasks? AddTask(Tasks task);
         Tasks? UpdateTask(int id, Tasks task);
         Tasks? DeleteTask(int id);
+        IEnumerable<Tasks?> GetTaskByName(string title);
     }
 }

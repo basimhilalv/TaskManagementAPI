@@ -14,6 +14,16 @@ namespace TaskManagementAPI.Controllers
         {
             _userServices = userServices;
         }
+        [HttpGet("GetUsers")]
+        public ActionResult<IEnumerable<User>> GetUser()
+        {
+            var users = _userServices.GetUsers();
+            if(users == null)
+            {
+                return NotFound();
+            }
+            return Ok(users);
+        }
         [HttpPost("register")]
         public ActionResult<User> RegisterUser(UserDto user)
         {

@@ -15,6 +15,17 @@ namespace TaskManagementAPI.Controllers
         {
             _taskServices = taskServices;
         }
+        [HttpGet("Search")]
+        public ActionResult<IEnumerable<Tasks>> GetSearch(string title)
+        {
+            var task = _taskServices.GetTaskByName(title);
+            if(task == null)
+            {
+                return NotFound();
+            }
+            return Ok(task);
+        }
+
         [Authorize(Roles = "Admin, User")]
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<Tasks>> GetAllTasks()
