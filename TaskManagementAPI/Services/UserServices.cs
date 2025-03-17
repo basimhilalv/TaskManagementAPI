@@ -8,7 +8,9 @@ namespace TaskManagementAPI.Services
 {
     public class UserServices : IUserServices
     {
-        public readonly List<User> Users = new List<User>();
+        public readonly List<User> Users = new List<User>() { new User { Id = Guid.NewGuid(), username = "Basim", password="Basim", role="Admin" },
+        new User { Id = Guid.NewGuid(), username = "Basim", password="Basim", role="Admin" }};
+
 
         public readonly IConfiguration _configuration;
         public UserServices(IConfiguration configuration)
@@ -17,6 +19,17 @@ namespace TaskManagementAPI.Services
             _configuration = configuration;
         }
 
+        public string loginuser(String username, String password)
+        {
+            if(Users.Any(u=>u.username == username && u.password == password))
+            {
+                return "Login Successfull";
+            }
+            else
+            {
+                return "Login Unsuccessfull";
+            }
+        }
         public User? RegisterUser(UserDto user)
         {
             if (Users.Any(u=> u.username == user.username))

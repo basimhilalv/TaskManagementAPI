@@ -10,10 +10,19 @@ namespace TaskManagementAPI.Controllers
     public class UserController : ControllerBase
     {
         public readonly IUserServices _userServices;
+
         public UserController(IUserServices userServices)
         {
             _userServices = userServices;
         }
+
+        [HttpGet("LOGIN")]
+        public ActionResult<String> LoginUser(String username, String password)
+        {
+            var status = _userServices.loginuser(username, password);
+            return Ok(status);
+        }
+
         [HttpGet("GetUsers")]
         public ActionResult<IEnumerable<User>> GetUser()
         {
